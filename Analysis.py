@@ -13,6 +13,7 @@ spark = SparkSession.builder \
     .config("spark.driver.memory", "2g") \
     .getOrCreate()
 
+
 spark.sparkContext.setLogLevel("ERROR")
 print("Đã khởi tạo thành công \n")
 
@@ -135,3 +136,4 @@ df.createOrReplaceTempView("ecommerce_cleaned")
 
 # 6. Dừng phiên làm việc
 spark.stop()
+
