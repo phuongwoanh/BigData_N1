@@ -1,3 +1,5 @@
+import findspark
+findspark.init()
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.types import FloatType
@@ -8,12 +10,11 @@ spark = SparkSession.builder \
     .appName("Phan_Tich_Hanh_Vi_TMDT") \
     .master("spark://26.37.93.102:7077") \
     .config("spark.executor.memory", "3g") \
+    .config("spark.driver.memory", "2g") \
     .getOrCreate()
-
 
 spark.sparkContext.setLogLevel("ERROR")
 print("Đã khởi tạo thành công \n")
-
 
 # 2. Đọc dữ liệu từ HDFS
 df = spark.read.parquet("hdfs://master:9000/data/test.parquet")
@@ -137,4 +138,3 @@ df.createOrReplaceTempView("ecommerce_cleaned")
 
 # 6. Dừng phiên làm việc
 spark.stop()
-
