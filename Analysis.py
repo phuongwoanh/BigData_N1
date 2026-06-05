@@ -127,11 +127,9 @@ df.select(
 df.describe("price").show()
 print(f"[FINAL] Tổng rows: {df.count():,}  |  Tổng cột: {len(df.columns)}")
 
-
 #Ghi lại trên HDFS
 df.write.mode("overwrite").parquet("hdfs://master:9000/data/test_cleaned.parquet")
 print("Đã ghi file sạch lên HDFS")
-
 
 df.createOrReplaceTempView("ecommerce_cleaned")
 
