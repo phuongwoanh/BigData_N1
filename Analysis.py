@@ -1,19 +1,6 @@
-# 0. Import các thư viện
-# THƯ VIỆN PYSPARK SQL (Xử lý dữ liệu)
+import findspark
+findspark.init()
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, when, count, isnull
-from pyspark.sql.window import Window
-# THƯ VIỆN PYSPARK ML (Học máy)
-from pyspark.ml.feature import StringIndexer, OneHotEncoder, VectorAssembler, StandardScaler
-from pyspark.ml.classification import LogisticRegression, RandomForestClassifier
-from pyspark.ml.clustering import KMeans
-from pyspark.ml.evaluation import BinaryClassificationEvaluator, MulticlassClassificationEvaluator, ClusteringEvaluator
-# HỆ SINH THÁI PYTHON (Trực quan & Đánh giá)
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, matthews_corrcoef
-
 from pyspark.sql import functions as F
 from pyspark.sql.types import FloatType
 
@@ -23,12 +10,12 @@ spark = SparkSession.builder \
     .appName("Phan_Tich_Hanh_Vi_TMDT") \
     .master("spark://26.37.93.102:7077") \
     .config("spark.executor.memory", "3g") \
+    .config("spark.driver.memory", "2g") \
     .getOrCreate()
 
 
 spark.sparkContext.setLogLevel("ERROR")
 print("Đã khởi tạo thành công \n")
-
 
 # 2. Đọc dữ liệu từ HDFS
 df = spark.read.parquet("hdfs://master:9000/data/test.parquet")
@@ -141,14 +128,11 @@ df.select(
 df.describe("price").show()
 print(f"[FINAL] Tổng rows: {df.count():,}  |  Tổng cột: {len(df.columns)}")
 
-
 #Ghi lại trên HDFS
 df.write.mode("overwrite").parquet("hdfs://master:9000/data/test_cleaned.parquet")
 print("Đã ghi file sạch lên HDFS")
 
-
 df.createOrReplaceTempView("ecommerce_cleaned")
-
 
 # 6. Dừng phiên làm việc
 spark.stop()
