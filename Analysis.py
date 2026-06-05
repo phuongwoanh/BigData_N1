@@ -1,4 +1,19 @@
+# 0. Import các thư viện
+# THƯ VIỆN PYSPARK SQL (Xử lý dữ liệu)
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, when, count, isnull
+from pyspark.sql.window import Window
+# THƯ VIỆN PYSPARK ML (Học máy)
+from pyspark.ml.feature import StringIndexer, OneHotEncoder, VectorAssembler, StandardScaler
+from pyspark.ml.classification import LogisticRegression, RandomForestClassifier
+from pyspark.ml.clustering import KMeans
+from pyspark.ml.evaluation import BinaryClassificationEvaluator, MulticlassClassificationEvaluator, ClusteringEvaluator
+# HỆ SINH THÁI PYTHON (Trực quan & Đánh giá)
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, matthews_corrcoef
+
 from pyspark.sql import functions as F
 from pyspark.sql.types import FloatType
 
