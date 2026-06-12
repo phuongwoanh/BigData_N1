@@ -32,7 +32,7 @@ df.show(20)
 total_rows = df.count()
 print(f"Tổng số bản ghi: {total_rows}")
 
-
+#TIỀN XỬ LÝ DỮ LIỆU
 # Xử lý duplicate dữ liệu
 df = df.dropDuplicates()
 
